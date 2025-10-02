@@ -29,5 +29,5 @@ class Media(models.Model):
 class Emprunt(models.Model):
     membre = models.ForeignKey(Membre, on_delete=models.CASCADE)
     media = models.ForeignKey(Media, on_delete=models.CASCADE)
-    date_emprunt = models.DateField(auto_now_add=True)
+    date_emprunt = models.DateField(auto_now_add=True) # set automatically
     date_retour = models.DateField(null=True,blank=True)
