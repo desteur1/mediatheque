@@ -1,2 +1,17 @@
 # Base SQLite
 db.sqlite3
+
+# Python cache   ignore tous les fichiers Python compilés
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE         ignore les fichiers générés automatiquement.
+.vscode/
+.idea/
+
+# Django specific  ignore les fichiers générés automatiquement
+*.log
+staticfiles/
+media/
