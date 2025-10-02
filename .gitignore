@@ -1,24 +1,23 @@
 # Base SQLite
 db.sqlite3
 
-# Python cache   ignore tous les fichiers Python compilés
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
 # Virtual env
-env/         #ignore environnement virtuel ne pas le mettre n'aurai rien changé au code parce git est initialiser dans mediatheque et mediatheque est au meme niveau que l'env
+env/
 venv/
 ENV/
 .venv/
 
-
-# IDE         ignore les fichiers générés automatiquement.
+# IDE
 .vscode/
 .idea/
 
-# Django specific  ignore les fichiers générés automatiquement
+# Django specific
 *.log
 staticfiles/
 media/
