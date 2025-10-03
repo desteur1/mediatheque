@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!-- Le titre de la page change selon si on ajoute ou modifie un média -->
+    <title>
+        {% if form.instance.pk %}
+            Modifier
+        {% else %}
+            Ajouter
+        {% endif %} un média
+    </title>
+</head>
+<body>
+    <!-- Le titre affiché dans la page change aussi selon le contexte -->
+    <h1>
+        {% if form.instance.pk %}
+            Modifier
+        {% else %}
+            Ajouter
+        {% endif %} un média
+    </h1>
+
+    <!-- Formulaire pour ajouter ou modifier un média -->
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <!--
+            {{ form.as_p }} : affiche tous les champs du formulaire (titre, auteur, type_media, disponible)
+            chaque champ sera dans un <p> pour la mise en page simple
+        -->
+        {{ form.as_p }}
+
+        <!-- Le bouton change selon si on modifie ou ajoute -->
+        <button type="submit">
+            {% if form.instance.pk %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+        </button>
+    </form>
+
+    <!-- Lien pour retourner à la liste des médias -->
+    <p>
+        <a href="{% url 'gestion:liste_medias' %}">Retour à la liste des médias</a>
+    </p>
+</body>
+</html>

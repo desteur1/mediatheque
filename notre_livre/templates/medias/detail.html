@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+<h1>{{ media.titre }}</h1>
+<p><strong>Auteur :</strong> {{ media.auteur }}</p>
+<p><strong>Type :</strong> {{ media.get_type_media_display }}</p>
+<p><strong>Disponible :</strong> {% if media.disponible %}Oui{% else %}Non{% endif %}</p>
+<a href="{% url 'liste_medias' %}">⬅ Retour à la liste</a>
 
 </body>
 </html>
