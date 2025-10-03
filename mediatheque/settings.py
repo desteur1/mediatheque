@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'notre_livre',
     'notre_media'
+
 ]
 
 MIDDLEWARE = [

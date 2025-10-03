@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.contrib.auth.hashers import make_password,check_password
 
@@ -37,8 +39,19 @@ class Media(models.Model):
 
 
 class Emprunt(models.Model):
-    membre = models.ForeignKey(Membre, on_delete=models.CASCADE)
-    media = models.ForeignKey(Media, on_delete=models.CASCADE)
+    membre = models.ForeignKey(Membre, on_delete=models.CASCADE,related_name="emprunts")
+    media = models.ForeignKey(Media, on_delete=models.CASCADE, related_name="emprunts")
     date_emprunt = models.DateField(auto_now_add=True) # set automatically
     date_retour = models.DateField(null=True,blank=True)
     rendu = models.BooleanField(default=False)
+
+
+    def save(self,*args, **kwargs):
+        # Si c'est un nouvel emprunt → calculer la date de retour
+        if not self.pk and not self.date_retour:
+            self.date_retour = self.date_emprunt + timedelta(days=7)
+            super().save(*args, **kwargs)
+
+
+    def est_en_retard(self):
+        return (not self.rendu) and (date.today() > self.date_retour)
