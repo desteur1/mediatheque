@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste de media</title>
+    <title>Liste des médias</title>
 </head>
 <body>
 <h1>Liste des médias</h1>
@@ -12,6 +12,10 @@
       <a href="{% url 'details_media' media.pk %}">
         {{ media.titre }}-{{media.auteur}} - {{ media.get_type_media_display }}
       </a>
+        {% if media.type_media != "jeu" and media.disponible %}
+        <!-- Lien vers le formulaire d'emprunt -->
+        <a href="{% url 'public:emprunter_media' media.pk %}">Emprunter</a>
+         {% endif %}
     </li>
     {% empty %}
      <li>Aucun média disponible</li>

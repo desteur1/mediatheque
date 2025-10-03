@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emprunter "{{ media.titre }}"</title>
+</head>
+<body>
+<h1>Emprunter "{{ media.titre }}"</h1>
+<!-- affiche les erreurs ou succès(ex. "Vous avez déjà 3 emprunts").     -->
+{% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+    {{ message }}
+</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<!--Les champs nom et email permettent de créer ou récupérer le membre.-->
+<form method="POST">
+    <!--protège contre les attaques CSRF pour le formulaire POST.-->
+    {% csrf_token %}
+    <label>Nom :</label>
+    <input type="text" name="nom" required><br>
+    <label>Email :</label>
+    <input type="email" name="email" required><br><br>
+    <button type="submit">Emprunter</button>
+</form>
+
+<a href="{% url 'public:liste_medias' %}">⬅ Retour à la liste des médias</a>
+</body>
+</html>

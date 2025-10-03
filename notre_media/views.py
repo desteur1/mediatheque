@@ -1,13 +1,17 @@
+from venv import create
+
 from django.shortcuts import render, redirect, get_object_or_404
 from notre_livre.models import Membre, Media
+from django.contrib import messages
+
 from .forms import MembreForm, MediaForm, LoginForm
 
 
 
-# ------decorateur ------
+# ------decorateur pour restreindre l'accès aux biblithécaires ------
 def bibliothecaire_required(view_func):
     def wrapper(request, *args, **kwargs):
-        membre_id = request.session.get('membre_id')
+        membre_id = request.session.get('membre_id') # récupère l'id du membre connecté
         if not membre_id:
             return redirect('gestion:login') # redirection login bibliothécaire
         try:
@@ -59,10 +63,10 @@ def ajouter_membre(request):
     if request.method == 'POST':
         form = MembreForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save() # sauvegarde le média
             return redirect('gestion:liste_membres') # utilise juste le name de l'URL
     else: # Get
-         form = MembreForm()
+         form = MembreForm() # formulaire vide pour GET
 
             # if POST invalid or GET
     return render(request, 'bibliotheque/membres/form_membre.html', {'form':form})
@@ -110,4 +114,8 @@ def modifier_media(request,id):
 
         # if POST invalid or GET
     return render(request, 'bibliotheque/medias/form_media.html', {'form':form})
+
+
+
+
 
