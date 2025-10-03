@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Liste de media</title>
 </head>
 <body>
+<h1>Liste des médias</h1>
+<ul>
+  {% for media in medias %}
+    <li>
+      <a href="{% url 'details_media' media.pk %}">
+        {{ media.titre }}-{{media.auteur}} - {{ media.get_type_media_display }}
+      </a>
+    </li>
+    {% empty %}
+     <li>Aucun média disponible</li>
+  {% endfor %}
+</ul>
 
 </body>
 </html>

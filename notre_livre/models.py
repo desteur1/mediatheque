@@ -1,11 +1,21 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password,check_password
 
 # Create your models here.
 
 
 class Membre(models.Model):
     nom = models.CharField(max_length=150)
-    email = models.CharField(unique=True)
+    email = models.EmailField(max_length=150,unique=True)
+    mot_de_passe = models.CharField(max_length=128, default='temp123')
+    est_bibliothecaire = models.BooleanField(default=False)
+
+    def set_password(self,raw_password):
+        self.mot_de_passe = make_password(raw_password)
+
+    def check_password(self,raw_password):
+        #self.mot_de_passe = make_password(raw_password)
+        return check_password(raw_password,self.mot_de_passe)
 
     def __str__(self):
         return self.nom
@@ -31,3 +41,4 @@ class Emprunt(models.Model):
     media = models.ForeignKey(Media, on_delete=models.CASCADE)
     date_emprunt = models.DateField(auto_now_add=True) # set automatically
     date_retour = models.DateField(null=True,blank=True)
+    rendu = models.BooleanField(default=False)

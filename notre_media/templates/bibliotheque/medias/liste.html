@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Liste des médias</title>
 </head>
 <body>
+    <h1>Liste des médias</h1>
 
+    <p><a href="{% url 'ajouter_media' %}">Ajouter un média</a></p>
+
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Type</th>
+                <th>Disponible</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for media in medias %}
+            <tr>
+                <td>{{ media.titre }}</td>
+                <td>{{ media.auteur }}</td>
+                <td>{{ media.get_type_media_display }}</td>
+                <td>{% if media.disponible %}✅{% else %}❌{% endif %}</td>
+                <td>
+                    <a href="{% url 'modifier_media' media.id %}">Modifier</a>
+                    <!-- plus tard tu peux ajouter : <a href="{% url 'supprimer_media' media.id %}">Supprimer</a> -->
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Aucun média trouvé</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

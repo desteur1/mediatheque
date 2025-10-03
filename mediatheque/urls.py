@@ -17,12 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 # include() sert à rediriger une partie des URLs vers un autre fichier urls.py.
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #URLS de l'application bibliothécaire (notre_media)
-    path('gestion/', include('notre_media.urls')),
+    path('', RedirectView.as_view(url='/medias/')),  # la racine redirige vers medias/
 
     #URLS de l'application publique (notre_livre)
-    path('medias/', include('notre_livre.urls'))
+    path('medias/', include(('notre_livre.urls','notre_livre'), namespace='public')),
+
+    #URLS de l'application bibliothécaire (notre_media)
+    path('gestion/', include(('notre_media.urls', 'notre_media'), namespace='gestion')),
 ]
