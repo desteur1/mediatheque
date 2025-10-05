@@ -7,7 +7,7 @@
 <body>
     <h1>Liste des médias</h1>
 
-    <p><a href="{% url 'ajouter_media' %}">Ajouter un média</a></p>
+    <p><a href="{% url 'gestion:ajouter_media' %}">Ajouter un média</a></p>
 
     <table border="1" cellpadding="5">
         <thead>
@@ -27,8 +27,9 @@
                 <td>{{ media.get_type_media_display }}</td>
                 <td>{% if media.disponible %}✅{% else %}❌{% endif %}</td>
                 <td>
-                    <a href="{% url 'modifier_media' media.id %}">Modifier</a>
-                    <!-- plus tard tu peux ajouter : <a href="{% url 'supprimer_media' media.id %}">Supprimer</a> -->
+                    <a href="{% url 'gestion:modifier_media' media.id %}">Modifier</a>
+                   {# plus tard on peut ajouter : <a href="{% url 'supprimer_media' media.id %}">Supprimer</a> #}
+
                 </td>
             </tr>
             {% empty %}
