@@ -7,7 +7,7 @@
 <body>
     <h1>Liste des membres</h1>
 
-    <p><a href="{% url 'ajouter_membre' %}">Ajouter un membre</a></p>
+    <p><a href="{% url 'gestion:ajouter_membre' %}">Ajouter un membre</a></p>
 
     <table border="1" cellpadding="5">
         <thead>
@@ -25,7 +25,7 @@
                 <td>{{ membre.email }}</td>
                 <td>{% if membre.est_bibliothecaire %}✅{% else %}❌{% endif %}</td>
                 <td>
-                    <a href="{% url 'modifier_membre' membre.id %}">Modifier</a>
+                    <a href="{% url 'gestion:modifier_membre' membre.id %}">Modifier</a>
                 </td>
             </tr>
             {% empty %}

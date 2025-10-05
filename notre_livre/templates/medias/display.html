@@ -6,15 +6,29 @@
 </head>
 <body>
 <h1>Liste des médias</h1>
+<h2>Vos emprunts</h2>
+{% if membre and emprunts %}
+    {% for emprunt in emprunts %}
+        <p>{{ emprunt.media.titre }} -
+        {% if not emprunt.rendu %}
+            <a href="{% url 'public:retourner_media' emprunt.id %}">Retourner</a>
+        {% else %}
+            ✅ Rendu
+        {% endif %}
+        </p>
+    {% endfor %}
+{% else %}
+    <p>Vous n'avez pas d'emprunts pour le moment.</p>
+{% endif %}
 <ul>
   {% for media in medias %}
     <li>
-      <a href="{% url 'details_media' media.pk %}">
-        {{ media.titre }}-{{media.auteur}} - {{ media.get_type_media_display }}
+      <a href="{% url 'public:detail_medias' media.pk %}">
+        {{ media.titre }}
       </a>
         {% if media.type_media != "jeu" and media.disponible %}
         <!-- Lien vers le formulaire d'emprunt -->
-        <a href="{% url 'public:emprunter_media' media.pk %}">Emprunter</a>
+        <a href="{% url 'public:emprunter_media' media.pk %}"></a>
          {% endif %}
     </li>
     {% empty %}

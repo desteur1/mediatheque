@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Emprunter "{{ media.titre }}"</title>
@@ -17,6 +17,7 @@
     </ul>
 {% endif %}
 <!--Les champs nom et email permettent de créer ou récupérer le membre.-->
+
 <form method="POST">
     <!--protège contre les attaques CSRF pour le formulaire POST.-->
     {% csrf_token %}

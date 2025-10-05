@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import date, timedelta
 
 from django.db import models
 from django.contrib.auth.hashers import make_password,check_password
@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password,check_password
 class Membre(models.Model):
     nom = models.CharField(max_length=150)
     email = models.EmailField(max_length=150,unique=True)
-    mot_de_passe = models.CharField(max_length=128, default='temp123')
+    mot_de_passe = models.CharField(max_length=128)
     est_bibliothecaire = models.BooleanField(default=False)
 
     def set_password(self,raw_password):
@@ -48,10 +48,18 @@ class Emprunt(models.Model):
 
     def save(self,*args, **kwargs):
         # Si c'est un nouvel emprunt → calculer la date de retour
-        if not self.pk and not self.date_retour:
-            self.date_retour = self.date_emprunt + timedelta(days=7)
+        if not self.pk: # nouvel emprunt
+            super().save(*args, **kwargs) # remplit date_emprunt automatiquement
+            if not self.date_retour:
+            # Utiliser la date actuelle pour éviter le problème de None
+               self.date_retour = self.date_emprunt + timedelta(days=7)
+               super().save(update_fields=['date_retour'])
+
+        else:
             super().save(*args, **kwargs)
 
 
     def est_en_retard(self):
+        if self.date_retour is None:
+            return False
         return (not self.rendu) and (date.today() > self.date_retour)
