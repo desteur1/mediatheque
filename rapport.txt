@@ -1,0 +1,81 @@
+Titre : Rapport de travail sur le projet Mediatheque
+Auteur : Desteur Piepenche Fall
+Date : 08/10/2025
+
+Résumé :
+Ce projet consiste à créer une application Django pour gérer les médias (livres, CD, DVD, etc.).
+J’ai réalisé la structure du projet, les modèles, les vues et les templates.
+
+ ============== Correction du code ===============================
+ J'ai repris le code du développeur que j'ai dû modifier, c'etait plus une
+ simulation python qu'une vraie application django, j'ai transformé les classes
+ comme Livre, DVD, CD etc., en modèles django(models.py).les function menu(),
+ menubibliotheque(), etc., ne servent plus dans django, qui utiliser:
+ - les vues(views.py) pour traiter une url et renvoyer un template HTML.
+ - les templates pour afficher le contenu.
+
+============== Fonctionnalités  ===============================
+ -- Membre (notre_livre)
+    - dans mon POST request sur la Fonction emprunt_media, j'ai crée une
+      condition qui permet de récupérer ou de créer un membre avant qu'il
+      ne soit en mesure d'emprunter un media: URL : medias/id/emprunter
+
+    - Pour afficher la liste des membres, j'ai crée une varible membre qui récupère avec
+      tous les objets dans Membre(model de la base de donnée),puis j'affiche ces données dans une
+      table du template: URL : gestion/membre/
+
+    - pour mettre à jour un membre j'ai créé une variable membre dans modifier_emprunt
+      et une condition dans ajouter_membre qui permet de récupérer et modifier et modifier ou
+      créer s'il  n'existe pas encore. pour que cela soit accessible uniquement aux bibliothecaires,
+      j'ai crée une Fonction loging_views qui permet de se connecter avant de pourvoir mettre à jour
+      un membre et le POST ou GET definir le type de formulaire dans mon html url =
+      et gestion/membre/modifier/
+
+    - Pour afficher la liste des medias,j'ai crée une varible media qui récupère
+      tous les objets dans Media(model-base de donnée),puis j'affiche ces données dans une
+      table du template: URL : gestion/livres
+    - pour emprunter un média disponible on vérifie avec les condition dans notre_livre
+      emprunt_media: si le media n'est pas un jeu de planteau,  les champs
+      nom et email ne sont pas vide
+
+    - pour mettre à jour un medias j'ai créé dans notre_media une variable media dans modifier_media
+      et une condition dans ajouter_media qui permet de récupérer et modifier ou
+      créer s'il n'existe pas encore,Comme pour les membres, seule une personne connectée (bibliothécaire) peut
+      effectuer cette action.
+      j'ai crée une Fonction logging_views qui permet de se connecter avant de pourvoir mettre à jour
+      un media et pour le POST ou GET definir le type de formulaire dans mon html URL : gestion/livres/ajouter/
+
+    - Dans la Fonction emprunt_media de notre_livre, j'ai crée des conditions pour vérifier si
+       le membre a un emprunt en retard, s'il a plus de trois emprunts, si le media n'est plus disponible.
+     - La founction retourner_media gère le retour des médias.
+
+
+=======================test stratégie ======================
+     pour les tests, j'ai utuliser pytest et pytest-django
+     jai les fichiers test pour chaque module (views, forms etc)
+     et chaque fonctionnalité a son test associé
+
+
+==================== données test ================
+    j'ai 9 médias test dans la base de données et
+    3 membres dont un administrateur.
+
+================== admin ==============
+    nom = Admin
+    email = admin@gmail.com
+    mot_de_passe = temp123
+
+
+================== installation ===========
+    asgiref==3.9.2
+    colorama==0.4.6
+    Django==5.2.6
+    iniconfig==2.1.0
+    packaging==25.0
+    pluggy==1.6.0
+    Pygments==2.19.2
+    pytest==8.4.2
+    pytest-django==4.11.1
+    sqlparse==0.5.3
+    tzdata==2025.2
+    python==3.13
