@@ -53,6 +53,7 @@ class Emprunt(models.Model):
             if not self.date_retour:
             # Utiliser la date actuelle pour éviter le problème de None
                self.date_retour = self.date_emprunt + timedelta(days=7)
+            # date.today() est le meilleur choix mais j'ai mis self.date_emprunt pour plus de clarté
                super().save(update_fields=['date_retour'])
 
         else:
