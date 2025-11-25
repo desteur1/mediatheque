@@ -62,7 +62,7 @@ J’ai réalisé la structure du projet, les modèles, les vues et les templates
 
 ================== admin ==============
     nom = Admin
-    email = admin@gmail.com
+    email = admin@example.com
     mot_de_passe = temp123
 
 
